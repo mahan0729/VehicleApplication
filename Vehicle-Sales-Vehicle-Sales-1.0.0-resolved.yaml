@@ -1,0 +1,114 @@
+---
+openapi: 3.0.0
+info:
+  title: Vehicle-Sales
+  description: A vehicle sales inventory API
+  version: 1.0.0
+servers:
+- url: https://example.io/v1
+paths:
+  /vehicles:
+    get:
+      description: Allows Users to get vehicles
+      parameters:
+      - name: Make
+        in: query
+        description: What is the manufacturer of the vehicle
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Model
+        in: query
+        description: What is the model of the vehicle
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Year
+        in: query
+        description: What is the Year of the vehicle
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: Color
+        in: query
+        description: What is the Color of the vehicle
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    post:
+      description: Lets a user post a new vehicle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body'
+        required: true
+      responses:
+        "200":
+          description: Successfully created a new vehicle
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        Make:
+          type: string
+        Model:
+          type: string
+        Year:
+          type: string
+        Color:
+          type: string
+        Price:
+          type: string
+        Mileage:
+          type: string
+    inline_response_400:
+      type: object
+      properties:
+        message:
+          type: string
+    body:
+      type: object
+      properties:
+        Make:
+          type: string
+        Model:
+          type: string
+        Year:
+          type: string
+        Color:
+          type: string
+        Price:
+          type: string
+        Mileage:
+          type: string
